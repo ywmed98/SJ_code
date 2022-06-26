@@ -1,10 +1,12 @@
 install.packages('tidyverse')
 install.packages('factoextra')
+install.packages('FactoMineR')
 
 
 library(dplyr)
 library(tidyverse)
 library(factoextra)
+library(FactoMineR)
 
 raw_data <- read.csv('../DCB.csv')
 raw_tb <- as_tibble(raw_data)
@@ -71,7 +73,6 @@ fviz_cluster(dcb_kmean, dcb_model$rotation, ellipse.type='norm')+theme_minimal()
 
 
 set.seed(1006)
-dcb_kmean <- kmeans(dcb_model$rotation, centers=4)
 fviz_cluster(dcb_kmean, dcb_model$rotation, ellipse.type='norm')+theme_minimal()
 #------- 망한 버전----------------
 #================= K-means clustering =================
@@ -80,6 +81,12 @@ sub_tbl_scaled <- scale(sub_tbl)
 set.seed(1007)
 dcb_kmean <- kmeans(sub_tbl_scaled, centers=3)
 fviz_cluster(dcb_kmean, sub_tbl_scaled, ellipse.type='norm') + theme_minimal()
+
+fviz_cluster(dcb_kmean, sub_tbl_scaled, ellipse.type='norm',
+             choose.vars=c('DCBBT', 'DCBDT')) + theme_minimal()
+
+dcb_pca <- PCA(sub_tbl_scaled, graph=F)
+fviz_contrib(dcb_pca, choice='var', axes=1, top=10) #Factor analysis: DIM1, DIM2
 
 set.seed(1008)
 dcb_kmean <- kmeans(sub_tbl_scaled, centers=4)
