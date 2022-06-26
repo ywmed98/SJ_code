@@ -73,3 +73,18 @@ fviz_cluster(dcb_kmean, dcb_model$rotation, ellipse.type='norm')+theme_minimal()
 set.seed(1006)
 dcb_kmean <- kmeans(dcb_model$rotation, centers=4)
 fviz_cluster(dcb_kmean, dcb_model$rotation, ellipse.type='norm')+theme_minimal()
+#------- 망한 버전----------------
+#================= K-means clustering =================
+sub_tbl_scaled <- scale(sub_tbl)
+
+set.seed(1007)
+dcb_kmean <- kmeans(sub_tbl_scaled, centers=3)
+fviz_cluster(dcb_kmean, sub_tbl_scaled, ellipse.type='norm') + theme_minimal()
+
+set.seed(1008)
+dcb_kmean <- kmeans(sub_tbl_scaled, centers=4)
+fviz_cluster(dcb_kmean, sub_tbl_scaled, ellipse.type='norm') + theme_minimal()
+
+set.seed(1009)
+dcb_kmean <- kmeans(sub_tbl_scaled, centers=5)
+fviz_cluster(dcb_kmean, sub_tbl_scaled, ellipse.type='norm') + theme_minimal()
